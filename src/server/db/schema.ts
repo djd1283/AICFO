@@ -51,6 +51,7 @@ export const users = createTable("user", {
     withTimezone: true,
   }).default(sql`CURRENT_TIMESTAMP`),
   image: varchar("image", { length: 255 }),
+  plaidAccessToken: text("plaid_access_token"),
 });
 
 export const usersRelations = relations(users, ({ many }) => ({

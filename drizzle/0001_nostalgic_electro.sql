@@ -1,0 +1,1 @@
+ALTER TABLE "test_t3_app_user" ADD COLUMN "plaid_access_token" text;

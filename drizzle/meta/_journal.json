@@ -8,6 +8,13 @@
       "when": 1733172292651,
       "tag": "0000_illegal_inertia",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1734037477399,
+      "tag": "0001_nostalgic_electro",
+      "breakpoints": true
     }
   ]
 }
