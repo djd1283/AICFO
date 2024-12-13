@@ -2,7 +2,7 @@ import { z } from "zod";
 import { Configuration, CountryCode, PlaidApi, Products } from "plaid";
 import { users } from "~/server/db/schema";
 import { eq } from "drizzle-orm";
-
+import { env } from "~/env";
 import {
   createTRPCRouter,
   protectedProcedure,
@@ -13,8 +13,8 @@ const configuration = new Configuration({
   basePath: process.env.PLAID_ENV === "sandbox" ? "https://sandbox.plaid.com" : "https://development.plaid.com",
   baseOptions: {
     headers: {
-      'PLAID-CLIENT-ID': process.env.PLAID_CLIENT_ID!,
-      'PLAID-SECRET': process.env.PLAID_SECRET!,
+      'PLAID-CLIENT-ID': env.PLAID_CLIENT_ID,
+      'PLAID-SECRET': env.PLAID_SECRET,
     },
   },
 });
