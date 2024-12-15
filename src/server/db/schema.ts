@@ -1,7 +1,11 @@
 import { relations, sql } from "drizzle-orm";
 import {
+  boolean,
+  date,
   index,
   integer,
+  jsonb,
+  numeric,
   pgTableCreator,
   primaryKey,
   text,
@@ -128,3 +132,62 @@ export const verificationTokens = createTable(
     compoundKey: primaryKey({ columns: [vt.identifier, vt.token] }),
   })
 );
+
+export const transactions = createTable(
+  "transactions",
+  {
+    id: varchar("id", { length: 255 })
+      .notNull()
+      .primaryKey()
+      .$defaultFn(() => crypto.randomUUID()),
+
+    // Link to your Plaid item and account
+    // plaidItemId: text("plaid_item_id").notNull(),
+    plaidAccountId: text("plaid_account_id").notNull(),
+
+    // Plaid's unique transaction identifiers
+    transactionId: varchar("transaction_id", { length: 255 }).notNull().unique(),
+    pendingTransactionId: varchar("pending_transaction_id", { length: 255 }),
+
+    // // Reference your internal account
+    accountId: varchar("account_id", { length: 255 })
+      .notNull()
+      .references(() => accounts.userId),
+
+    // Financial details
+    amount: numeric("amount", { precision: 10, scale: 2 }).notNull(),
+    isoCurrencyCode: varchar("iso_currency_code", { length: 10 }),
+    unofficialCurrencyCode: varchar("unofficial_currency_code", { length: 10 }),
+
+    // Dates
+    date: date("date").notNull(),
+    authorizedDate: date("authorized_date"),
+
+    // Transaction metadata from Plaid
+    name: text("name").notNull(),
+    merchantName: text("merchant_name"),
+    category: text("category"),
+    pending: boolean("pending").notNull().default(false),
+    paymentChannel: text("payment_channel"),
+
+    // Location fields (optional but useful)
+    address: text("address"),
+    city: text("city"),
+    region: text("region"),
+    postalCode: text("postal_code"),
+    country: text("country"),
+
+    // Timestamps
+    createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
+    updatedAt: timestamp("updated_at", { withTimezone: true }).defaultNow().notNull(),
+  },
+  (transaction) => ({
+    accountIdIdx: index("transaction_account_id_idx").on(transaction.accountId),
+    transactionIdIdx: index("transaction_transaction_id_idx").on(transaction.transactionId),
+  })
+);
+
+export const transactionsRelations = relations(transactions, ({ one }) => ({
+  account: one(accounts, { fields: [transactions.accountId], references: [accounts.userId] })
+}));
+
