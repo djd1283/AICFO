@@ -30,7 +30,7 @@ export const plaidLoginRouter = createTRPCRouter({
         client_user_id: ctx.session.user.id,
       },
       client_name: "AICFO",
-      products: [Products.Auth],
+      products: ['auth', 'transactions'] as Products[],
       country_codes: [CountryCode.Us],
       language: "en",
     };
