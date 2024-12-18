@@ -68,9 +68,18 @@ export const plaidRouter = createTRPCRouter({
       }
       
       const endDate = new Date().toISOString().split('T')[0] ?? '';
-      const startDate = '2024-01-01'; // You might want to make this configurable
-
       // Get transaction count from Plaid
+      const response = await plaidClient.transactionsGet({
+        access_token: accessToken.plaidAccessToken,
+        start_date: '2024-01-01', // You might want to make this configurable
+        end_date: endDate,
+        options: {
+          account_ids: [accountId],
+          count: 1, // We only need the count
+          offset: 0,
+        },
+      });
+
       const { transactions: plaidTransactions } = response.data;
 
       const records = plaidTransactions.map((pTx) => ({
