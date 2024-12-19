@@ -150,9 +150,9 @@ export const transactions = createTable(
     pendingTransactionId: varchar("pending_transaction_id", { length: 255 }),
 
     // // Reference your internal account
-    accountId: varchar("account_id", { length: 255 })
+    userId: varchar("user_id", { length: 255 })
       .notNull()
-      .references(() => accounts.userId),
+      .references(() => users.id),
 
     // Financial details
     amount: numeric("amount", { precision: 10, scale: 2 }).notNull(),
@@ -182,12 +182,12 @@ export const transactions = createTable(
     updatedAt: timestamp("updated_at", { withTimezone: true }).defaultNow().notNull(),
   },
   (transaction) => ({
-    accountIdIdx: index("transaction_account_id_idx").on(transaction.accountId),
+    userIdIdx: index("transaction_user_id_idx").on(transaction.userId),
     transactionIdIdx: index("transaction_transaction_id_idx").on(transaction.transactionId),
   })
 );
 
 export const transactionsRelations = relations(transactions, ({ one }) => ({
-  account: one(accounts, { fields: [transactions.accountId], references: [accounts.userId] })
+  user: one(users, { fields: [transactions.userId], references: [users.id] })
 }));
 

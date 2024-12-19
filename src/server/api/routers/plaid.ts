@@ -87,7 +87,7 @@ export const plaidRouter = createTRPCRouter({
         transactionId: pTx.transaction_id,
         pendingTransactionId: pTx.pending_transaction_id ?? null,
 
-        accountId: ctx.session.user.id, // Ensure this matches an existing account
+        userId: ctx.session.user.id, // Ensure this matches an existing account
 
         amount: pTx.amount.toPrecision(10),
         isoCurrencyCode: pTx.iso_currency_code ?? null,
