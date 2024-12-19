@@ -1,5 +1,5 @@
 {
-  "id": "75be178e-d6e6-436a-ab76-522a26d2357c",
+  "id": "79b4b442-1ed3-4d40-ac65-a31a936214d9",
   "prevId": "248426a1-5573-405f-8831-fe340886e963",
   "version": "7",
   "dialect": "postgresql",
@@ -301,8 +301,8 @@
           "primaryKey": false,
           "notNull": false
         },
-        "account_id": {
-          "name": "account_id",
+        "user_id": {
+          "name": "user_id",
           "type": "varchar(255)",
           "primaryKey": false,
           "notNull": true
@@ -414,11 +414,11 @@
         }
       },
       "indexes": {
-        "transaction_account_id_idx": {
-          "name": "transaction_account_id_idx",
+        "transaction_user_id_idx": {
+          "name": "transaction_user_id_idx",
           "columns": [
             {
-              "expression": "account_id",
+              "expression": "user_id",
               "isExpression": false,
               "asc": true,
               "nulls": "last"
@@ -446,15 +446,15 @@
         }
       },
       "foreignKeys": {
-        "test_t3_app_transactions_account_id_test_t3_app_account_user_id_fk": {
-          "name": "test_t3_app_transactions_account_id_test_t3_app_account_user_id_fk",
+        "test_t3_app_transactions_user_id_test_t3_app_user_id_fk": {
+          "name": "test_t3_app_transactions_user_id_test_t3_app_user_id_fk",
           "tableFrom": "test_t3_app_transactions",
-          "tableTo": "test_t3_app_account",
+          "tableTo": "test_t3_app_user",
           "columnsFrom": [
-            "account_id"
+            "user_id"
           ],
           "columnsTo": [
-            "user_id"
+            "id"
           ],
           "onDelete": "no action",
           "onUpdate": "no action"
