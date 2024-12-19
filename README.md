@@ -1,10 +1,36 @@
-# Create T3 App
+# AI CFO Project
 
-This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
+This is a project to help small businesses with their financial planning and forecasting using AI and integrations with financial data.
 
-## What's next? How do I make an app with this?
+# T3 Stack Info
 
-We try to keep this project as simple as possible, so you can start with just the scaffolding we set up for you, and add additional things later when they become necessary.
+## Running the project
+
+Start by installing the dependencies:
+
+`npm install`
+
+Make sure you have Docker installed, and then run the following command:
+
+`./start-database.sh`
+
+This will start a postgres database as a Docker container. If you have not migrated the database to the latest schema yet, you can run this command to do so:
+
+`npm run db:migrate`
+
+To run the backend/frontend together at port 3000, you can run the following command:
+
+`npm run dev`
+
+## Adding new tables/columns to the database
+
+You can update the schema database by modifying the src/server/db/schema.ts file and then running the following command:
+
+`npm run db:generate`
+
+This will generate a new migration file which will live in the drizzle/ folder, and will allow others to run `npm run db:migrate` to update the database to the latest schema.
+
+## Technologies used in this stack
 
 If you are not familiar with the different technologies used in this project, please refer to the respective docs. If you still are in the wind, please join our [Discord](https://t3.gg/discord) and ask for help.
 

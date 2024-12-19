@@ -15,6 +15,13 @@
       "when": 1734037477399,
       "tag": "0001_nostalgic_electro",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1734634534952,
+      "tag": "0002_cooing_dragon_man",
+      "breakpoints": true
     }
   ]
 }
